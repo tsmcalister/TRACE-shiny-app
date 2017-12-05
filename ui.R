@@ -11,7 +11,10 @@ shinyUI(
             sidebarMenu(
                 menuItem("Overview", tabName = "overview", icon = icon("vcard")),
                 menuItem("General Analysis", tabName = "generalanalysis", icon = icon("bar-chart")),
-                menuItem("Selected Statistics", tabName = "selectedstatistics", icon= icon("bullseye"))
+                menuItem("Selected Statistics", tabName = "selectedstatistics", icon= icon("bullseye"),
+                     menuSubItem("Executing Party Analysis", tabName="exec_party"),
+                     menuSubItem("Individual Bond Analysis", tabName="indiv_bond")
+                )
             )
         ),
 
@@ -50,7 +53,7 @@ organization. The aim of this study is to identify the existence of systematic b
                                 selectInput(
                                     "db_select_graph",
                                     label = h3("Type of Graph"),
-                                    choices = c("Histogram","by date","cumsum")
+                                    choices = c("Histogram","by date","cumsum","boxplot")
                                 ),
                                 checkboxInput(
                                     "db_remove_outliers",
@@ -81,6 +84,52 @@ organization. The aim of this study is to identify the existence of systematic b
             # Second tab content
                 tabItem(tabName = "selectedstatistics",
                     h2("Widgets tab content")
+                ),
+
+                                tabItem(tabName = "exec_party",
+                    fluidRow(
+                        box(
+                            withSpinner(plotOutput("exec_plot_1", height = 500)),
+                            withSpinner(tableOutput("exec_table_1"))
+                        ),
+                        box(
+                            withSpinner(plotOutput("exec_plot_2", height = 500)),
+                            withSpinner(tableOutput("exec_table_2"))
+                        )
+                    ),
+                    fluidRow(
+                        box(
+                            withSpinner(plotOutput("exec_plot_3", height = 500)),
+                            withSpinner(tableOutput("exec_table_3"))
+                        ),
+                        box(
+                            withSpinner(plotOutput("exec_plot_4", height = 500)),
+                            withSpinner(tableOutput("exec_table_4"))
+                        )
+                    )
+                ),
+
+                 tabItem(tabName = "indiv_bond",
+                    fluidRow(
+                        box(
+                            withSpinner(plotOutput("indiv_plot_1", height = 500)),
+                            withSpinner(tableOutput("indiv_table_1"))
+                        ),
+                        box(
+                            withSpinner(plotOutput("indiv_plot_2", height = 500)),
+                            withSpinner(tableOutput("indiv_table_2"))
+                        )
+                    ),
+                    fluidRow(
+                        box(
+                            withSpinner(plotOutput("indiv_plot_3", height = 500)),
+                            withSpinner(tableOutput("indiv_table_3"))
+                        ),
+                        box(
+                            withSpinner(plotOutput("indiv_plot_4", height = 500)),
+                            withSpinner(tableOutput("indiv_table_4"))
+                        )
+                    )
                 )
             )
         )
